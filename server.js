@@ -6,12 +6,14 @@ const cors = require("cors");
 const port = 8080 || 5000;
 const app = express();
 
+
 app.use(cors())
 const server = http.createServer(app);
 const io = SocketIO(server ,{
   cors: {
     origin: "https://websocketsfront.vercel.app/",
-    method: ["GET", "POST"]
+    method: ["GET", "POST"],
+    credentials: true
   }
 });
 
