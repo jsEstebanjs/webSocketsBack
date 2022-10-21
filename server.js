@@ -10,12 +10,7 @@ const app = express();
 app.use(cors())
 
 const server = http.createServer(app);
-const io = SocketIO(server, {
-  cors: {
-    origin: "https://websocketfront.vercel.app/",
-    method: ["GET", "POST"],
-  },
-});
+const io = SocketIO(server);
 
 io.on("connection", (socket) => {
 
