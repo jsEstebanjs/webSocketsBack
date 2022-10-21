@@ -3,27 +3,25 @@ const SocketIO = require("socket.io");
 const http = require("http");
 const cors = require("cors");
 
-const port = 8080 || 5000;
+const port = process.env.PORT || 8081;
 const app = express();
 
+app.use(cors());
 
-app.use(cors())
 const server = http.createServer(app);
-const io = SocketIO(server ,{
+const io = SocketIO(server, {
   cors: {
     origin: ["*"],
-    handlePreflightRequest:(req,res)=>{
+    handlePreflightRequest: (req, res) => {
       res.writeHead(200, {
-        "Access-Control-Allow-Origin":"*",
-        "Access-Control-Allow-Methods":"GET,POST",
-        "Access-Control-Allow-Headers":"my-custom-header",
-        "Access-Control-Allow-Credentials":true,
-        
-
-      })
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,POST",
+        "Access-Control-Allow-Headers": "my-custom-header",
+        "Access-Control-Allow-Credentials": true,
+      });
       res.end();
-    }
-  }
+    },
+  },
 });
 
 io.on("connection", (socket) => {
@@ -33,5 +31,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(port, () => {
-  console.log("Server OK");
+  console.log(`server Ok ${port}`);
 });
