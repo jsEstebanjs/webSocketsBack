@@ -11,9 +11,18 @@ app.use(cors())
 const server = http.createServer(app);
 const io = SocketIO(server ,{
   cors: {
-    origin: "https://websocketsfront.vercel.app/",
-    method: ["GET", "POST"],
-    credentials: true
+    origin: ["*"],
+    handlePreflightRequest:(res,req)=>{
+      res.writeHead(200, {
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Methods":"GET,POST",
+        "Access-Control-Allow-Headers":"my-custom-header",
+        "Access-Control-Allow-Credentials":true,
+        
+
+      })
+      res.end();
+    }
   }
 });
 
