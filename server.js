@@ -12,7 +12,7 @@ const server = http.createServer(app);
 const io = SocketIO(server ,{
   cors: {
     origin: ["*"],
-    handlePreflightRequest:(res,req)=>{
+    handlePreflightRequest:(req,res)=>{
       res.writeHead(200, {
         "Access-Control-Allow-Origin":"*",
         "Access-Control-Allow-Methods":"GET,POST",
