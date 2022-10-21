@@ -6,21 +6,20 @@ const cors = require("cors");
 const port = process.env.PORT || 8081;
 const app = express();
 
-app.use(cors());
+
+const corsOptions = {
+  origin:"https://websocketsfront.vercel.app",
+  optionsSuccesStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 const server = http.createServer(app);
 const io = SocketIO(server, {
   cors: {
     origin: ["*"],
-    handlePreflightRequest: (req, res) => {
-      res.writeHead(200, {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-        "Access-Control-Allow-Headers": "my-custom-header",
-        "Access-Control-Allow-Credentials": true,
-      });
-      res.end();
-    },
+    method:["GET" , "POST"],
+
   },
 });
 
